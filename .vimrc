@@ -3,17 +3,17 @@ Plug 'scrooloose/nerdtree'
 Plug 'Yggdroot/LeaderF'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'tpope/vim-surround'
-Plug 'preservim/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tomasr/molokai'
-Plug 'puremourning/vimspector'
 call plug#end()
 
 set nu
 set autoindent
 set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 "set mouse=a
 set nocompatible       " be iMproved, required
 set laststatus=2  
@@ -21,13 +21,12 @@ set laststatus=2
 let g:airline_powerline_fonts = 1  
 let g:airline#extensions#tabline#enabled=1    " 开启 tab 栏
 set background=dark
-set smartindent
 
 filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 call vundle#end()            " required
 filetype plugin indent on    " required
 let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
@@ -73,6 +72,9 @@ func! CompileRunGcc()
     elseif &filetype == 'java'
         exec "!javac %"
         exec "!time java %<"
+    elseif &filetype == 'go'
+        exec "!go build  %"
+        exec "!time ./%<"
     elseif &filetype == 'sh'
         :!time bash %
     elseif &filetype == 'python'
@@ -100,3 +102,17 @@ func! RunExeFunc()
     exec "w"
     exec "!cd /home/lichao/lichao/muduo/muduo/net-lichao/build && ./main"
 endfunc
+
+
+map <F12> :call RunDebugFunc()<CR>
+func! RunDebugFunc()
+    exec "w"
+    exec "!cd /home/lichao/lichao/muduo/muduo/net-lichao/build && gdb -tui main"
+endfunc
+
+
+" 打开vim时,自动打开NERDTree
+"autocmd vimenter * NERDTree
+" 设置NerdTree打开的快捷键,可自行更改
+map <F2> :NERDTreeMirror<CR>
+map <F2> :NERDTreeToggle<CR>
