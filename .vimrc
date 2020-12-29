@@ -91,7 +91,7 @@ func! CompileRunGcc()
     endif
 endfunc
 
-map <F4> :call RunMakeFunc()<CR>
+map <F6> :call RunMakeFunc()<CR>
 func! RunMakeFunc()
     exec "w"
     exec "!cd /home/lichao/lichao/muduo/muduo/net-lichao/build && make"
@@ -111,8 +111,16 @@ func! RunDebugFunc()
 endfunc
 
 
+highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
+highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
 " 打开vim时,自动打开NERDTree
 "autocmd vimenter * NERDTree
 " 设置NerdTree打开的快捷键,可自行更改
 map <F2> :NERDTreeMirror<CR>
 map <F2> :NERDTreeToggle<CR>
+"map <F3> :set nocuc<CR>
+"map <F3> :set cursorcolumn<CR>
+map <F3> :set cursorline<CR>
+map <F4> :set nocul<CR>
+""map <F4> :set nocul cursorline<CR>
+set tags=./tags;/
